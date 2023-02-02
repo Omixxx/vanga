@@ -33,9 +33,10 @@ function printAnimeStats(animes: Anime[]) {
 }
 
 async function main() {
-  // printRelations("made in abyss");
   const animes: Anime[] = await search("made in abyss");
-  console.log(await animes[0].getStatistics());
+  animes.forEach(async (anime: Anime) => {
+    console.log(anime.title.english);
+  });
 }
 
 async function printRelations(animes: Anime[]) {
@@ -55,9 +56,12 @@ async function printRelations(animes: Anime[]) {
 
 async function search(title: string) {
   const animes: Anime[] = await client.anime.search(title);
-  const relevantAnimes = animes.filter((anime: Anime) => {
-    anime.title.toString().includes(title);
+  return animes.filter((anime: Anime) => {
+    return (
+      anime.title.english !== null &&
+      anime.title.english.toLowerCase().includes(title.toLowerCase())
+    );
   });
-  return relevantAnimes;
 }
+
 main();
