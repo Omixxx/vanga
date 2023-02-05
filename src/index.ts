@@ -2,9 +2,11 @@ import Jikan, {
   Anime,
   AnimeRelationGroup,
   ContentRelationType,
+  ContentTitle,
+  TitleArray,
 } from "jikan4.js";
 import chalk from "chalk";
-import { TitleReviews } from "./types/types";
+import { TitleReviews } from "../types/types";
 const client = new Jikan.Client();
 
 async function getReviews(animes: Anime[]): Promise<TitleReviews[]> {
@@ -33,9 +35,10 @@ function printAnimeStats(animes: Anime[]) {
 }
 
 async function main() {
-  const animes: Anime[] = await strictAnimeSearch("made in abyss");
+  const animes: Anime[] = await strictAnimeSearch("nanatsu");
   animes.forEach(async (anime: Anime) => {
-    console.log(anime.title.english);
+    const scores = await anime.getStatistics();
+    console.log(scores);
   });
 }
 
@@ -57,10 +60,9 @@ async function printRelations(animes: Anime[]) {
 async function strictAnimeSearch(title: string) {
   const animes: Anime[] = await client.anime.search(title);
   return animes.filter((anime: Anime) => {
-    return (
-      anime.title.english !== null &&
-      anime.title.english.toLowerCase().includes(title.toLowerCase())
-    );
+    for (let entry of anime.titles) {
+      if (entry.title.toLowerCase().includes(title.toLowerCase())) return true;
+    }
   });
 }
 

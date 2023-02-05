@@ -1,4 +1,3 @@
-import time
 import json
 import requests
 from bs4 import BeautifulSoup
@@ -7,7 +6,6 @@ url = 'https://myanimelist.net/topanime.php'
 anime_data = []
 
 while url:
-    time.sleep(10)
     response = requests.get(url)
     soup = BeautifulSoup(response.text, 'html.parser')
 
