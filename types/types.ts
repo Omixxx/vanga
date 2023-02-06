@@ -1,5 +1,5 @@
 import { AnimeReview } from "jikan4.js";
-import tg from "generic-type-guard";
+import * as tg from "generic-type-guard";
 
 export type TitleReviews = {
   title: string | null;
