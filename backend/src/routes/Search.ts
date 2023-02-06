@@ -3,6 +3,6 @@ import { search } from "../controllers/Search";
 
 const router = express.Router();
 
-router.get("/", search);
+router.post("/", search);
 
 export default router;

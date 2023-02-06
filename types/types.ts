@@ -1,4 +1,5 @@
 import { AnimeReview } from "jikan4.js";
+import * as tg from "generic-type-guard";
 
 export type TitleReviews = {
   title: string | null;
@@ -25,7 +26,11 @@ export type Manga = {
   votes_reliability: number;
 };
 
-//todo: add attributes for type (canon, ova, etc..)
-export type SearchRequest = {
-  title: string;
-};
+//todo: add attributes for type ( canon, ova, etc)
+export const isSearchRequest = new tg.IsInterface()
+  .withProperties({
+    title: tg.isString,
+  })
+  .get();
+
+export type SearchRequest = tg.GuardedType<typeof isSearchRequest>;
