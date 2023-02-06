@@ -1,12 +1,6 @@
-import Jikan, {
-  Anime,
-  AnimeRelationGroup,
-  ContentRelationType,
-  ContentTitle,
-  TitleArray,
-} from "jikan4.js";
+import Jikan, { Anime } from "jikan4.js";
 import chalk from "chalk";
-import { TitleReviews } from "../types/types";
+import { TitleReviews } from "../../types/types";
 const client = new Jikan.Client();
 
 async function getReviews(animes: Anime[]): Promise<TitleReviews[]> {
@@ -35,26 +29,17 @@ function printAnimeStats(animes: Anime[]) {
 }
 
 async function main() {
-  const animes: Anime[] = await strictAnimeSearch("nanatsu");
+  const animes: Anime[] = await strictAnimeSearch("nanatsu no taizai");
   animes.forEach(async (anime: Anime) => {
-    const scores = await anime.getStatistics();
-    console.log(scores);
+    const statistics = await anime.getStatistics();
+    const animeRelations = await anime.getRelations();
+    getAnimeType(anime);
+    console.log(anime);
   });
 }
 
-async function printRelations(animes: Anime[]) {
-  animes.forEach(async (anime: Anime) => {
-    const relations = await anime.getRelations();
-    console.log(
-      `${chalk.red("Title")}: ${anime.title.english}\n${chalk.red(
-        "Relations"
-      )}: ${relations.map(
-        (relation: AnimeRelationGroup<ContentRelationType>) => {
-          console.log(relation);
-        }
-      )}`
-    );
-  });
+async function getAnimeType(anime: Anime) {
+  console.log(anime.type + " - " + anime.titles[0].title);
 }
 
 async function strictAnimeSearch(title: string) {
