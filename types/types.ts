@@ -5,7 +5,7 @@ export type TitleReviews = {
   reviews: AnimeReview[] | undefined;
 };
 
-export type Result = {
+export type SearchResponse = {
   animes: Anime[];
   manga: Manga;
   winner_title: string;
@@ -23,4 +23,9 @@ export type Manga = {
   image: string;
   total_score: number;
   votes_reliability: number;
+};
+
+//todo: add attributes for type (canon, ova, etc..)
+export type SearchRequest = {
+  title: string;
 };
