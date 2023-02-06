@@ -12,7 +12,5 @@ export async function search(req: Request, res: Response) {
 
   const searchRequest: SearchRequest = req.body;
 
-  console.log(searchRequest);
-
-  res.status(200).send({ message: "Success" });
+  res.status(200).send(searchRequest);
 }
