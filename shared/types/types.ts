@@ -2,19 +2,15 @@ import * as tg from "generic-type-guard";
 
 export const isAnime = new tg.IsInterface()
   .withProperties({
-    titles: tg.isString,
-    image: tg.isString,
-    total_score: tg.isNumber,
-    votes_reliability: tg.isNumber,
+    title: tg.isNullable(tg.isString),
+    image: tg.isNullable(tg.isString),
   })
   .get();
 
 export const isManga = new tg.IsInterface()
   .withProperties({
-    title: tg.isString,
-    image: tg.isString,
-    total_score: tg.isNumber,
-    votes_reliability: tg.isNumber,
+    title: tg.isNullable(tg.isString),
+    image: tg.isNullable(tg.isString),
   })
   .get();
 
