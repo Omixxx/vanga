@@ -2,15 +2,15 @@ import * as tg from "generic-type-guard";
 
 export const isAnime = new tg.IsInterface()
   .withProperties({
-    title: tg.isNullable(tg.isString),
-    image: tg.isNullable(tg.isString),
+    title: tg.isString,
+    image: tg.isString,
   })
   .get();
 
 export const isManga = new tg.IsInterface()
   .withProperties({
-    title: tg.isNullable(tg.isString),
-    image: tg.isNullable(tg.isString),
+    title: tg.isString,
+    image: tg.isString,
   })
   .get();
 
@@ -23,8 +23,8 @@ export const isSearchRequest = new tg.IsInterface()
 
 export const isSearchResponse = new tg.IsInterface()
   .withProperties({
-    animes: tg.isArray(tg.isExactObject(isAnime)),
-    mangas: tg.isArray(tg.isExactObject(isManga)),
+    animes: tg.isArray(isAnime),
+    mangas: tg.isArray(isManga),
   })
   .get();
 
