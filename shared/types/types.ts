@@ -2,6 +2,7 @@ import * as tg from "generic-type-guard";
 
 export const isAnime = new tg.IsInterface()
   .withProperties({
+    id: tg.isNumber,
     title: tg.isString,
     image: tg.isString,
   })
@@ -9,6 +10,7 @@ export const isAnime = new tg.IsInterface()
 
 export const isManga = new tg.IsInterface()
   .withProperties({
+    id: tg.isNumber,
     title: tg.isString,
     image: tg.isString,
   })
