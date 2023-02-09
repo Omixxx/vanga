@@ -6,8 +6,13 @@ import {
 } from "@mantine/core";
 import { IconSearch, IconArrowRight, IconArrowLeft } from "@tabler/icons-react";
 import { useState } from "react";
-import { SearchRequest } from "../../../../../../types/types";
+import {
+  isSearchResponse,
+  SearchRequest,
+  SearchResponse,
+} from "../../../../../../shared/types/types";
 import getSearchResults from "../../../services/search/Search";
+import exists from "../../../utils/exists";
 
 export function SearchBar(props: TextInputProps) {
   const theme = useMantineTheme();
@@ -25,7 +30,11 @@ export function SearchBar(props: TextInputProps) {
           color={theme.primaryColor}
           variant="filled"
           onClick={async () => {
-            console.log(await getSearchResults(query));
+            const res = await getSearchResults(query);
+            if (!exists(res)) return alert("errore");
+            if (!isSearchResponse(res)) return alert("errore");
+
+            console.log(res);
           }}
         >
           {theme.dir === "ltr" ? (
