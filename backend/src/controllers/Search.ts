@@ -11,8 +11,8 @@ import chalk from "chalk";
 import { AnimeService } from "../services/AnimeService";
 import { MangaService } from "../services/MangaService";
 import Jikan from "jikan4.js";
-import convertJikanAnimeType from "../utils/convertJikanAnimeType";
-import convertJikanMangaType from "../utils/converJikanMangaType";
+import convertJikanAnimeToCustomAnime from "../utils/convertJikanAnimeType";
+import convertJikanMangaToCustomManga from "../utils/converJikanMangaType";
 
 const animeServie = new AnimeService();
 const mangaService = new MangaService();
@@ -34,8 +34,8 @@ export async function search(req: Request, res: Response) {
   );
 
   const response: SearchResponse = {
-    animes: convertJikanAnimeType(animeSearch),
-    mangas: convertJikanMangaType(mangaSearch),
+    animes: convertJikanAnimeToCustomAnime(animeSearch),
+    mangas: convertJikanMangaToCustomManga(mangaSearch),
   };
 
   res.status(200).send(response);
