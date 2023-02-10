@@ -56,10 +56,6 @@ interface AnimeMangaProps {
   title: string;
   description: string;
   rating: string;
-  author: {
-    name: string;
-    image: string;
-  };
 }
 
 export function AnimeMangaCard({
@@ -68,7 +64,6 @@ export function AnimeMangaCard({
   link,
   title,
   description,
-  author,
   rating,
   ...others
 }: AnimeMangaProps &
@@ -103,13 +98,6 @@ export function AnimeMangaCard({
       </Text>
 
       <Group position="apart" className={classes.footer}>
-        <Center>
-          <Avatar src={author.image} size={24} radius="xl" mr="xs" />
-          <Text size="sm" inline>
-            {author.name}
-          </Text>
-        </Center>
-
         <Group spacing={8} mr={0}>
           <ActionIcon className={classes.action}>
             <IconHeart size={16} color={theme.colors.red[6]} />
