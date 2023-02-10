@@ -13,6 +13,7 @@ export default function convertJikanAnimeToCustomAnime(
       source: Source.anime,
       title: anime.titles[0].title,
       imageUrl: anime.image.jpg.large?.toString() || "",
+      isExplicit: anime.isExplicit,
     });
   }
   return convertedAnimes;

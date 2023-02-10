@@ -33,7 +33,7 @@ export default function viewTest() {
             <Grid.Col>
               <AnimeMangaCard
                 title={e.title}
-                image={e.type === "hentai" ? "" : e.imageUrl}
+                image={e.imageUrl}
                 link={e.imageUrl}
                 description={e.synopsis}
                 rating={e.source}
