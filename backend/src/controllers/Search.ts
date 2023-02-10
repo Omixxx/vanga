@@ -2,7 +2,6 @@ import exists from "../utils/exists";
 import {
   isSearchRequest,
   SearchRequest,
-  isSearchResponse,
   SearchResponse,
 } from "../../../shared/types/types";
 import assert from "assert";
