@@ -1,8 +1,23 @@
 import * as tg from "generic-type-guard";
 
+export enum SourceType {
+  anime = "anime",
+  manga = "manga",
+}
+export const isRelationRequest = new tg.IsInterface()
+  .withProperties({
+    id: tg.isNumber,
+    sourceType: tg.isUnion(
+      tg.isSingletonString(SourceType.manga),
+      tg.isSingletonString(SourceType.anime)
+    ),
+  })
+  .get();
+
 export const isAnime = new tg.IsInterface()
   .withProperties({
     id: tg.isNumber,
+    sourceType: tg.isSingletonString(SourceType.anime),
     title: tg.isString,
     image: tg.isString,
   })
@@ -11,6 +26,7 @@ export const isAnime = new tg.IsInterface()
 export const isManga = new tg.IsInterface()
   .withProperties({
     id: tg.isNumber,
+    sourceType: tg.isSingletonString(SourceType.manga),
     title: tg.isString,
     image: tg.isString,
   })
@@ -30,6 +46,7 @@ export const isSearchResponse = new tg.IsInterface()
   })
   .get();
 
+export type RelationRequest = tg.GuardedType<typeof isRelationRequest>;
 export type SearchResponse = tg.GuardedType<typeof isSearchResponse>;
 export type SearchRequest = tg.GuardedType<typeof isSearchRequest>;
 export type Manga = tg.GuardedType<typeof isManga>;
