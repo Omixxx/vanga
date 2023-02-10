@@ -6,18 +6,17 @@ import {
 } from "../../../shared/types/types";
 import assert from "assert";
 import { Request, Response } from "express";
-import chalk from "chalk";
 import { AnimeService } from "../services/AnimeService";
 import { MangaService } from "../services/MangaService";
 import Jikan from "jikan4.js";
 import convertJikanAnimeToCustomAnime from "../utils/convertJikanAnimeType";
 import convertJikanMangaToCustomManga from "../utils/converJikanMangaType";
+import printRequestHostName from "../utils/printRequestHostName";
 
 const animeServie = new AnimeService();
 const mangaService = new MangaService();
 export async function search(req: Request, res: Response) {
-  console.log(chalk.yellow(req.hostname) + " requested a search");
-
+  printRequestHostName(req, "is requesting search");
   assert(exists(req.body), "Request body is undefined");
   assert(
     isSearchRequest(req.body),

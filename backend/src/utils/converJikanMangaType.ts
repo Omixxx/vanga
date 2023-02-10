@@ -10,7 +10,7 @@ export default function convertJikanMangaToCustomManga(
       id: manga.id,
       sourceType: SourceType.manga,
       title: manga.titles[0].title,
-      image: manga.image.webp.default?.toString() || "",
+      image: manga.image.jpg.large?.toString() || "",
     });
   }
   return convertedMangas;
