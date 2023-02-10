@@ -1,5 +1,5 @@
 import Jikan from "jikan4.js";
-import { Anime, SourceType } from "../../../shared/types/types";
+import { Anime, Source } from "../../../shared/types/types";
 
 export default function convertJikanAnimeToCustomAnime(
   animes: Jikan.Anime[]
@@ -8,9 +8,11 @@ export default function convertJikanAnimeToCustomAnime(
   for (const anime of animes) {
     convertedAnimes.push({
       id: anime.id,
-      sourceType: SourceType.anime,
+      type: anime.type,
+      synopsis: anime.synopsis || "",
+      source: Source.anime,
       title: anime.titles[0].title,
-      image: anime.image.jpg.large?.toString() || "",
+      imageUrl: anime.image.jpg.large?.toString() || "",
     });
   }
   return convertedAnimes;

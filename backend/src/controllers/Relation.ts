@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { isRelationRequest, SourceType } from "../../../shared/types/types";
+import { isRelationRequest, Source } from "../../../shared/types/types";
 import { AnimeService } from "../services/AnimeService";
 import { MangaService } from "../services/MangaService";
 import exists from "../utils/exists";
@@ -14,7 +14,7 @@ export default async function getRelations(req: Request, res: Response) {
   printRequestHostName(req, `is requesting relations for ${req.body.id}`);
   const request = req.body;
 
-  if (request.sourceType === SourceType.anime) {
+  if (request.source === Source.anime) {
     console.log("anime");
 
     const relations = await animeService.getRelations(request.id);
@@ -23,7 +23,7 @@ export default async function getRelations(req: Request, res: Response) {
     });
   }
 
-  if (request.sourceType === SourceType.manga) {
+  if (request.source === Source.manga) {
     console.log("manga");
 
     const relations = await mangaService.getRelations(request.id);

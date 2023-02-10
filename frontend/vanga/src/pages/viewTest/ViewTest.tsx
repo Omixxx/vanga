@@ -33,16 +33,16 @@ export default function viewTest() {
             <Grid.Col>
               <AnimeMangaCard
                 title={e.title}
-                image={e.image}
-                link={e.image}
+                image={e.imageUrl}
+                link={e.imageUrl}
                 description={"ciao"}
                 author={{ name: "ciao", image: "ciao" }}
-                rating={e.sourceType}
+                rating={e.source}
               >
                 <Button
                   size="xs"
                   onClick={() => {
-                    getRelations(e.id, e.sourceType);
+                    getRelations(e.id, e.source);
                   }}
                 >
                   send

@@ -1,5 +1,5 @@
 import Jikan from "jikan4.js";
-import { Manga, SourceType } from "../../../shared/types/types";
+import { Manga, Source } from "../../../shared/types/types";
 
 export default function convertJikanMangaToCustomManga(
   mangas: Jikan.Manga[]
@@ -8,9 +8,11 @@ export default function convertJikanMangaToCustomManga(
   for (const manga of mangas) {
     convertedMangas.push({
       id: manga.id,
-      sourceType: SourceType.manga,
+      type: manga.type,
+      synopsis: manga.synopsis || "",
+      source: Source.manga,
       title: manga.titles[0].title,
-      image: manga.image.jpg.large?.toString() || "",
+      imageUrl: manga.image.jpg.large?.toString() || "",
     });
   }
   return convertedMangas;

@@ -10,7 +10,7 @@ import {
   Avatar,
   createStyles,
 } from "@mantine/core";
-import { SourceType } from "../../../../../../shared/types/types";
+import { Source } from "../../../../../../shared/types/types";
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -127,9 +127,9 @@ export function AnimeMangaCard({
             }}
             variant="gradient"
             gradient={
-              rating === SourceType.anime
+              rating === Source.anime
                 ? { from: "yellow", to: "red" }
-                : { from: "blue", to: "purple" }
+                : { from: "darkmagenta", to: "purple" }
             }
           >
             {rating}

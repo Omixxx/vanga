@@ -1,15 +1,16 @@
 import * as tg from "generic-type-guard";
 
-export enum SourceType {
+export enum Source {
   anime = "anime",
   manga = "manga",
 }
+
 export const isRelationRequest = new tg.IsInterface()
   .withProperties({
     id: tg.isNumber,
-    sourceType: tg.isUnion(
-      tg.isSingletonString(SourceType.manga),
-      tg.isSingletonString(SourceType.anime)
+    source: tg.isUnion(
+      tg.isSingletonString(Source.manga),
+      tg.isSingletonString(Source.anime)
     ),
   })
   .get();
@@ -17,18 +18,22 @@ export const isRelationRequest = new tg.IsInterface()
 export const isAnime = new tg.IsInterface()
   .withProperties({
     id: tg.isNumber,
-    sourceType: tg.isSingletonString(SourceType.anime),
+    type: tg.isString,
+    source: tg.isSingletonString(Source.anime),
     title: tg.isString,
-    image: tg.isString,
+    imageUrl: tg.isString,
+    synopsis: tg.isString,
   })
   .get();
 
 export const isManga = new tg.IsInterface()
   .withProperties({
     id: tg.isNumber,
-    sourceType: tg.isSingletonString(SourceType.manga),
+    type: tg.isString,
+    source: tg.isSingletonString(Source.manga),
     title: tg.isString,
-    image: tg.isString,
+    imageUrl: tg.isString,
+    synopsis: tg.isString,
   })
   .get();
 
