@@ -12,7 +12,7 @@ import {
   SearchRequest,
   SearchResponse,
 } from "../../../../../../shared/types/types";
-import getSearchResults from "../../../services/search/Search";
+import getSearchResults from "../../../services/search/search";
 import exists from "../../../utils/exists";
 
 export function SearchBar(props: TextInputProps) {
