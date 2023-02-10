@@ -48,12 +48,11 @@ export function SearchBar(props: TextInputProps) {
           )}
         </ActionIcon>
       }
-      placeholder="Search questions"
+      placeholder="Search Anime or Manga"
       rightSectionWidth={42}
       {...props}
       onChange={(e) => {
         setQuery({ title: e.target.value });
-        console.log(query);
       }}
     />
   );

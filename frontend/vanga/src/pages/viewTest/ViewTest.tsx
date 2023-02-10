@@ -6,21 +6,14 @@ import {
   SearchResponse,
 } from "../../../../../shared/types/types";
 import getRelations from "../../services/relations/getRelations";
+import { AnimeMangaCard } from "./components/AnimeMangaCard";
 
 export default function viewTest() {
   const SearchResponse = useLocation().state as SearchResponse;
 
-  console.log(SearchResponse);
-
   return (
     <div>
-      <ul>
-        <h2>Animes</h2>
-      </ul>
       <ul>{renderTitles(SearchResponse.animes)}</ul>
-      <ul>
-        <h2>Mangas</h2>
-      </ul>
       <ul>{renderTitles(SearchResponse.mangas)}</ul>
     </div>
   );
@@ -28,8 +21,14 @@ export default function viewTest() {
   function renderTitles(entity: Anime[] | Manga[]) {
     return entity.map((e) => {
       return (
-        <li>
-          {e.id}: {e.title}
+        <AnimeMangaCard
+          title={e.title}
+          image={e.image}
+          link={e.image}
+          description={"ciao"}
+          author={{ name: "ciao", image: "ciao" }}
+          rating={e.sourceType}
+        >
           <Button
             size="xs"
             onClick={() => {
@@ -38,7 +37,7 @@ export default function viewTest() {
           >
             send
           </Button>
-        </li>
+        </AnimeMangaCard>
       );
     });
   }
