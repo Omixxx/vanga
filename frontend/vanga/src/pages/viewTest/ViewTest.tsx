@@ -1,4 +1,4 @@
-import { Button } from "@mantine/core";
+import { Button, Container, Grid } from "@mantine/core";
 import { useLocation } from "react-router-dom";
 import {
   Anime,
@@ -12,32 +12,45 @@ export default function viewTest() {
   const SearchResponse = useLocation().state as SearchResponse;
 
   return (
-    <div>
-      <ul>{renderTitles(SearchResponse.animes)}</ul>
-      <ul>{renderTitles(SearchResponse.mangas)}</ul>
-    </div>
+    <Container my={"xl"}>
+      <Grid
+        style={{
+          display: "flex",
+          height: "200px",
+        }}
+      >
+        <Grid.Col>{renderAnimeOrManga(SearchResponse.animes)}</Grid.Col>
+        <Grid.Col>{renderAnimeOrManga(SearchResponse.mangas)}</Grid.Col>
+      </Grid>
+    </Container>
   );
 
-  function renderTitles(entity: Anime[] | Manga[]) {
+  function renderAnimeOrManga(entity: Anime[] | Manga[]) {
     return entity.map((e) => {
       return (
-        <AnimeMangaCard
-          title={e.title}
-          image={e.image}
-          link={e.image}
-          description={"ciao"}
-          author={{ name: "ciao", image: "ciao" }}
-          rating={e.sourceType}
-        >
-          <Button
-            size="xs"
-            onClick={() => {
-              getRelations(e.id, e.sourceType);
-            }}
-          >
-            send
-          </Button>
-        </AnimeMangaCard>
+        <Container>
+          <Grid>
+            <Grid.Col>
+              <AnimeMangaCard
+                title={e.title}
+                image={e.image}
+                link={e.image}
+                description={"ciao"}
+                author={{ name: "ciao", image: "ciao" }}
+                rating={e.sourceType}
+              >
+                <Button
+                  size="xs"
+                  onClick={() => {
+                    getRelations(e.id, e.sourceType);
+                  }}
+                >
+                  send
+                </Button>
+              </AnimeMangaCard>
+            </Grid.Col>
+          </Grid>
+        </Container>
       );
     });
   }

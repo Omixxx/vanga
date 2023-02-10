@@ -86,24 +86,13 @@ export function AnimeMangaCard({
       radius="md"
       className={cx(classes.card, className)}
       {...others}
+      style={{ width: "200px" }}
     >
       <Card.Section>
         <a {...linkProps}>
-          <Image src={image} height={180} />
+          <Image src={image} />
         </a>
       </Card.Section>
-
-      <Badge
-        className={classes.rating}
-        variant="gradient"
-        gradient={
-          rating === SourceType.anime
-            ? { from: "yellow", to: "red" }
-            : { from: "blue", to: "purple" }
-        }
-      >
-        {rating}
-      </Badge>
 
       <Text className={classes.title} weight={500} component="a" {...linkProps}>
         {title}
@@ -131,6 +120,20 @@ export function AnimeMangaCard({
           <ActionIcon className={classes.action}>
             <IconShare size={16} />
           </ActionIcon>
+          <Badge
+            style={{
+              paddingBlock: "0.5rem",
+              paddingInline: "0.5rem",
+            }}
+            variant="gradient"
+            gradient={
+              rating === SourceType.anime
+                ? { from: "yellow", to: "red" }
+                : { from: "blue", to: "purple" }
+            }
+          >
+            {rating}
+          </Badge>
         </Group>
       </Group>
     </Card>
