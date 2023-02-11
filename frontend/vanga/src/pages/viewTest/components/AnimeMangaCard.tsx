@@ -9,7 +9,6 @@ import {
   createStyles,
 } from "@mantine/core";
 import { Source } from "../../../../../../shared/types/types";
-import getRelations from "../../../services/relations/getRelations";
 import "./AnimeMangaCard.css";
 
 const useStyles = createStyles((theme) => ({
