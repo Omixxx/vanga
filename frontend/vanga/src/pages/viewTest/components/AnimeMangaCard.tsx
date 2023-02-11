@@ -110,12 +110,12 @@ export function AnimeMangaCard({
             }}
             variant="gradient"
             gradient={
-              rating === Source.anime
+              source === Source.anime
                 ? { from: "yellow", to: "red" }
                 : { from: "magenta", to: "purple" }
             }
           >
-            {rating}
+            {source}
           </Badge>
         </Group>
       </Group>

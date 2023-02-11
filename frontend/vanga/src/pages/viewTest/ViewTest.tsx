@@ -13,7 +13,7 @@ export default function viewTest() {
   const SearchResponse = useLocation().state as SearchResponse;
 
   return (
-    <Container>
+    <Container className={"container"}>
       {renderAnimeOrManga(SearchResponse.animes)}
       {renderAnimeOrManga(SearchResponse.mangas)}
     </Container>
@@ -31,8 +31,8 @@ export default function viewTest() {
                 source={e.source}
                 id={e.id}
                 image={e.imageUrl}
-                description={e.synopsis}
                 rating={e.source}
+                description={e.synopsis}
                 onClick={() => {
                   getRelations(e.id, e.source);
                 }}
