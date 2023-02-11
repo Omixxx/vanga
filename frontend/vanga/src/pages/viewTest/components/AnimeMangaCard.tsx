@@ -6,11 +6,11 @@ import {
   ActionIcon,
   Badge,
   Group,
-  Center,
-  Avatar,
   createStyles,
 } from "@mantine/core";
 import { Source } from "../../../../../../shared/types/types";
+import getRelations from "../../../services/relations/getRelations";
+import "./AnimeMangaCard.css";
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -52,7 +52,8 @@ const useStyles = createStyles((theme) => ({
 
 interface AnimeMangaProps {
   image: string;
-  link: string;
+  source: Source;
+  id: number;
   title: string;
   description: string;
   rating: string;
@@ -60,8 +61,9 @@ interface AnimeMangaProps {
 
 export function AnimeMangaCard({
   className,
+  id,
   image,
-  link,
+  source,
   title,
   description,
   rating,
@@ -69,27 +71,20 @@ export function AnimeMangaCard({
 }: AnimeMangaProps &
   Omit<React.ComponentPropsWithoutRef<"div">, keyof AnimeMangaProps>) {
   const { classes, cx, theme } = useStyles();
-  const linkProps = {
-    href: link,
-    target: "_blank",
-    rel: "noopener noreferrer",
-  };
 
   return (
     <Card
       withBorder
       radius="md"
-      className={cx(classes.card, className)}
+      className={cx(classes.card, className, "mouse-pointer", "card")}
       {...others}
       style={{ width: "200px" }}
     >
       <Card.Section>
-        <a {...linkProps}>
-          <Image src={image} />
-        </a>
+        <Image src={image} />
       </Card.Section>
 
-      <Text className={classes.title} weight={500} component="a" {...linkProps}>
+      <Text className={classes.title} weight={500}>
         {title}
       </Text>
 
@@ -117,7 +112,7 @@ export function AnimeMangaCard({
             gradient={
               rating === Source.anime
                 ? { from: "yellow", to: "red" }
-                : { from: "darkmagenta", to: "purple" }
+                : { from: "magenta", to: "purple" }
             }
           >
             {rating}
