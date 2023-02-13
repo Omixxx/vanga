@@ -81,8 +81,8 @@ export function AnimeMangaCard({
       className={cx(classes.card, className, "mouse-pointer", "card")}
       {...others}
     >
-      <Card.Section style={{height:"10rem"}}>
-        <img src={image} className="card_image" />
+      <Card.Section>
+        <Image src={image} fit="cover" width={210} height={300} />
       </Card.Section>
 
       <Text className={classes.title} weight={500}>
