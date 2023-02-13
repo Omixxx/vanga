@@ -14,6 +14,9 @@ import "./AnimeMangaCard.css";
 const useStyles = createStyles((theme) => ({
   card: {
     position: "relative",
+    alignItems: "stretch",
+    maxWidth: "13rem",
+    height: "40rem",
     backgroundColor:
       theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.white,
   },
@@ -77,10 +80,9 @@ export function AnimeMangaCard({
       radius="md"
       className={cx(classes.card, className, "mouse-pointer", "card")}
       {...others}
-      style={{ width: "200px" }}
     >
-      <Card.Section>
-        <Image src={image} />
+      <Card.Section style={{height:"10rem"}}>
+        <img src={image} className="card_image" />
       </Card.Section>
 
       <Text className={classes.title} weight={500}>

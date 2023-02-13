@@ -8,6 +8,7 @@ import {
 import NoData from "../../components/NoData";
 import getRelations from "../../services/relations/getRelations";
 import { AnimeMangaCard } from "./components/AnimeMangaCard";
+import "./ViewTest.css";
 
 export default function viewTest() {
   const SearchResponse = useLocation().state as SearchResponse;
@@ -20,29 +21,33 @@ export default function viewTest() {
   );
 
   function renderAnimeOrManga(entity: Anime[] | Manga[]) {
-    return entity.length > 0 ? (
-      entity.map((e) => {
-        if (e.isExplicit) return;
-        return (
-          <Grid key={e.id}>
-            <Grid.Col>
-              <AnimeMangaCard
-                title={e.title}
-                source={e.source}
-                id={e.id}
-                image={e.imageUrl}
-                rating={e.source}
-                description={e.synopsis}
-                onClick={() => {
-                  getRelations(e.id, e.source);
-                }}
-              ></AnimeMangaCard>
-            </Grid.Col>
-          </Grid>
-        );
-      })
-    ) : (
-      <NoData message="nothing found" />
+    return (
+      <>
+        {entity.length > 0 ? (
+          entity.map((e) => {
+            if (e.isExplicit) return;
+            return (
+              <Grid key={e.id}>
+                <Grid.Col>
+                  <AnimeMangaCard
+                    title={e.title}
+                    source={e.source}
+                    id={e.id}
+                    image={e.imageUrl}
+                    rating={e.source}
+                    description={e.synopsis}
+                    onClick={() => {
+                      getRelations(e.id, e.source);
+                    }}
+                  ></AnimeMangaCard>
+                </Grid.Col>
+              </Grid>
+            );
+          })
+        ) : (
+          <NoData message="nothing found" />
+        )}
+      </>
     );
   }
 }
