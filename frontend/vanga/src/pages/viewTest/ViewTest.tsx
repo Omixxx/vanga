@@ -20,11 +20,15 @@ export default function viewTest() {
     </Container>
   );
 
+  function orderByPopularity(e1: any, e2: any) {
+    return e1.popularity <= e2.popularity ? -1 : 1;
+  }
+
   function renderAnimeOrManga(entity: Anime[] | Manga[]) {
     return (
       <>
         {entity.length > 0 ? (
-          entity.map((e) => {
+          entity.sort(orderByPopularity).map((e) => {
             if (e.isExplicit) return;
             return (
               <Grid key={e.id}>
