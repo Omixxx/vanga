@@ -32,13 +32,14 @@ export function SearchBar(props: TextInputProps) {
           color={theme.primaryColor}
           variant="filled"
           onClick={async () => {
-            const res: SearchResponse | undefined = await getSearchResults(
-              query
-            );
-            if (!exists(res)) return alert("Response in not defined");
-            if (!isSearchResponse(res)) return alert("Not valid Response type");
+            const searchResponse: SearchResponse | undefined =
+              await getSearchResults(query);
+            if (!exists(searchResponse))
+              return alert("Response in not defined");
+            if (!isSearchResponse(searchResponse))
+              return alert("Not valid Response type");
 
-            navigate("/search_results", { state: res });
+            navigate("/search_results", { state: searchResponse });
           }}
         >
           {theme.dir === "ltr" ? (
@@ -50,7 +51,6 @@ export function SearchBar(props: TextInputProps) {
       }
       placeholder="Search Anime or Manga"
       rightSectionWidth={42}
-      {...props}
       onChange={(e) => {
         setQuery({ title: e.target.value });
       }}
