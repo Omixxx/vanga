@@ -12,7 +12,7 @@ export default function convertJikanAnimeToCustomAnime(
       synopsis: anime.synopsis || "",
       source: Source.anime,
       title: anime.titles[0].title,
-      imageUrl: anime.image.jpg.default?.toString() || "",
+      imageUrl: anime.image.jpg.large?.toString() || "",
       isExplicit: anime.isExplicit,
     });
   }
