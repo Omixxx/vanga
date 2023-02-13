@@ -16,7 +16,6 @@ const useStyles = createStyles((theme) => ({
     position: "relative",
     alignItems: "stretch",
     maxWidth: "13rem",
-    height: "40rem",
     backgroundColor:
       theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.white,
   },
@@ -82,7 +81,7 @@ export function AnimeMangaCard({
       {...others}
     >
       <Card.Section>
-        <Image src={image} fit="cover" width={210} height={300} />
+        <Image src={image} fit="cover" width={"13rem"} height={"17rem"} />
       </Card.Section>
 
       <Text className={classes.title} weight={500}>
