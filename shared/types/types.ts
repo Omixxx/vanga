@@ -24,6 +24,7 @@ export const isAnime = new tg.IsInterface()
     imageUrl: tg.isString,
     synopsis: tg.isString,
     isExplicit: tg.isBoolean,
+    popularity: tg.isNumber,
   })
   .get();
 
@@ -36,6 +37,7 @@ export const isManga = new tg.IsInterface()
     imageUrl: tg.isString,
     synopsis: tg.isString,
     isExplicit: tg.isBoolean,
+    popularity: tg.isNumber,
   })
   .get();
 

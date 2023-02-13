@@ -14,6 +14,7 @@ export default function convertJikanMangaToCustomManga(
       title: manga.titles[0].title,
       imageUrl: manga.image.jpg.large?.toString() || "",
       isExplicit: manga.isExplicit,
+      popularity: manga.popularity,
     });
   }
   return convertedMangas;

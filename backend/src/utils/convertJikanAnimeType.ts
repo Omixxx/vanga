@@ -14,6 +14,7 @@ export default function convertJikanAnimeToCustomAnime(
       title: anime.titles[0].title,
       imageUrl: anime.image.jpg.large?.toString() || "",
       isExplicit: anime.isExplicit,
+      popularity: anime.popularity,
     });
   }
   return convertedAnimes;
