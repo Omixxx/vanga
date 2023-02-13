@@ -12,7 +12,7 @@ export default function convertJikanMangaToCustomManga(
       synopsis: manga.synopsis || "",
       source: Source.manga,
       title: manga.titles[0].title,
-      imageUrl: manga.image.jpg.large?.toString() || "",
+      imageUrl: manga.image.jpg.default?.toString() || "",
       isExplicit: manga.isExplicit,
     });
   }
