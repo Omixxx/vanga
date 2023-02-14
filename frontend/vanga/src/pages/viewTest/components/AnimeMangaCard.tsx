@@ -1,7 +1,7 @@
 import { IconBookmark, IconHeart, IconShare } from "@tabler/icons-react";
+import { lazy } from "react";
 import {
   Card,
-  Image,
   Text,
   ActionIcon,
   Badge,
@@ -10,7 +10,13 @@ import {
 } from "@mantine/core";
 import { Source } from "../../../../../../shared/types/types";
 import "./AnimeMangaCard.css";
+import { LazyLoader } from "../../../components/LazyLoader";
 
+const A = lazy(() =>
+  import("@mantine/core").then(({ Image }) => ({
+    default: Image,
+  }))
+);
 const useStyles = createStyles((theme) => ({
   card: {
     position: "relative",
@@ -81,7 +87,11 @@ export function AnimeMangaCard({
       {...others}
     >
       <Card.Section>
-        <Image src={image} fit="cover" width={"13rem"} height={"17rem"} />
+        <LazyLoader
+          component={
+            <A src={image} fit="cover" width={"13rem"} height={"17rem"} />
+          }
+        />
       </Card.Section>
 
       <Text className={classes.title} weight={500}>
