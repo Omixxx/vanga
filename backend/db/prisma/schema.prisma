@@ -10,8 +10,206 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
+model Anime {
+  id              Int              @id @unique
+  url             String
+  Jpg             Jpg?
+  Webp            Webp?
+  Title           Title[]
+  score           Float
+  scoredBy        Int
+  rank            Int
+  popularity      Int
+  members         Int
+  favorites       Int
+  synopsis        String?
+  background      String?
+  approved        Boolean
+  trailer         Trailer?
+  type            String
+  source          String
+  episodes        Int
+  airInfo         AirInfo?
+  duration        Int
+  rating          String
+  season          String
+  year            Int
+  trailerId       Int
+  Producers       Producer[]
+  Lincensors      Lincensor[]
+  Studios         Studio[]
+  Genres          Genre[]
+  ExplicitGeneres ExplicitGenere[]
+  Demographic     Demographic[]
+  Themes          Theme[]
+  Relations       Relation[]
+  Openings        Opening[]
+  Endings         Ending[]
+  isExplicit      Boolean
+  streamingLink   streamingLink[]
+}
+
+model Jpg {
+  id      Int     @id @default(autoincrement())
+  anime   Anime   @relation(fields: [animeId], references: [id])
+  animeId Int     @unique
+  small   String?
+  medium  String?
+  large   String?
+  maximum String?
+  default String?
+}
+
+model Webp {
+  id      Int     @id @default(autoincrement())
+  anime   Anime   @relation(fields: [animeId], references: [id])
+  animeId Int     @unique
+  small   String?
+  medium  String?
+  large   String?
+  maximum String?
+  default String?
+}
+
+model Title {
+  id      Int    @id @default(autoincrement())
+  anime   Anime  @relation(fields: [animeId], references: [id])
+  animeId Int    @unique
+  type    String
+  title   String
+}
+
+model Trailer {
+  id             Int           @id @default(autoincrement())
+  anime          Anime         @relation(fields: [animeId], references: [id])
+  animeId        Int           @unique
+  url            String
+  embedUrl       String
+  trailerImageId Int
+  TrailerImage   TrailerImage?
+}
+
+model TrailerImage {
+  id        Int     @id @default(autoincrement())
+  trailer   Trailer @relation(fields: [trailerId], references: [id])
+  trailerId Int     @unique
+  small     String
+  default   String
+  medium    String
+  large     String
+  maximum   String
+}
+
+model AirInfo {
+  id        Int      @id @default(autoincrement())
+  anime     Anime    @relation(fields: [animeId], references: [id])
+  animeId   Int      @unique
+  status    String
+  aring     Boolean
+  airedForm DateTime
+  airedTo   DateTime
+}
+
+model Producer {
+  id            Int    @id @default(autoincrement())
+  anime         Anime  @relation(fields: [animeId], references: [id])
+  animeId       Int    @unique
+  producerMalId Int
+  type          String
+  name          String
+  url           String
+}
+
+model Lincensor {
+  id             Int    @id @default(autoincrement())
+  anime          Anime  @relation(fields: [animeId], references: [id])
+  animeId        Int    @unique
+  lincensorMalId Int
+  url            String
+  type           String
+  name           String
+}
+
+model Studio {
+  id           Int    @id @default(autoincrement())
+  anime        Anime  @relation(fields: [animeId], references: [id])
+  animeId      Int    @unique
+  studiosMalId Int
+  url          String
+  type         String
+  name         String
+}
+
+model Genre {
+  id         Int    @id @default(autoincrement())
+  anime      Anime  @relation(fields: [animeId], references: [id])
+  animeId    Int    @unique
+  genreMalId Int
+  type       String
+  name       String
+  url        String
+  genereType String
+}
+
+model ExplicitGenere {
+  id                 Int    @id @default(autoincrement())
+  anime              Anime  @relation(fields: [animeId], references: [id])
+  animeId            Int    @unique
+  explicitGenreMalId Int
+  type               String
+  name               String
+  url                String
+  genereType         String
+}
+
+model Demographic {
+  id               Int    @id @default(autoincrement())
+  anime            Anime  @relation(fields: [animeId], references: [id])
+  animeId          Int    @unique
+  domographicMalId Int
+  type             String
+  name             String
+  url              String
+  genereType       String
+}
+
+model Theme {
+  id         Int    @id @default(autoincrement())
+  anime      Anime  @relation(fields: [animeId], references: [id])
+  animeId    Int    @unique
+  themeMalId Int
+  type       String
+  name       String
+  url        String
+  genereType String
+}
+
+model Relation {
+  id           Int    @id @default(autoincrement())
+  anime        Anime  @relation(fields: [animeId], references: [id])
+  animeId      Int    @unique
+  relationType String
+  relatedTo    Int
+}
+
+model Opening {
+  id      Int    @id @default(autoincrement())
+  anime   Anime  @relation(fields: [animeId], references: [id])
+  animeId Int    @unique
+  title   String
+}
+
+model Ending {
+  id      Int    @id @default(autoincrement())
+  anime   Anime  @relation(fields: [animeId], references: [id])
+  animeId Int    @unique
+  title   String
+}
+
+model streamingLink {
+  id      Int    @id @default(autoincrement())
+  anime   Anime  @relation(fields: [animeId], references: [id])
+  animeId Int    @unique
+  name    String
+  url     String
 }

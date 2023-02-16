@@ -1,5 +1,5 @@
 import { Anime, Manga } from "jikan4.js";
-import { mineAnime, mineManga, resetAnimeMangaIndex } from "./spider";
+import { a, mineAnime, mineManga, resetAnimeMangaIndex } from "./spider";
 
 async function seed() {
   let thereAreMoreAnimesToMine: boolean = true;
