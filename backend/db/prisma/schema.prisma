@@ -15,7 +15,7 @@ model Anime {
   url             String
   jpg             Jpg?
   webp            Webp?
-  title           Title[]
+  titles          Title[]
   score           Float?
   scoredBy        Int?
   rank            Int
@@ -46,6 +46,7 @@ model Anime {
   endings         Ending[]
   isExplicit      Boolean
   streamingLink   StreamingLink[]
+  hash            String           @unique
 }
 
 model Jpg {
@@ -188,7 +189,7 @@ model Relation {
   anime        Anime  @relation(fields: [animeId], references: [id])
   animeId      Int
   relationType String
-  sourceType   String
+  source       String
   relatedToId  Int
 }
 
