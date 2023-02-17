@@ -16,11 +16,13 @@ export async function mineManga(): Promise<Manga[]> {
   return jikan.manga.list(currentMangaIndex++, numberOfAnimeMangaWeRequest);
 }
 
-export function a() {
-  return jikan.anime.getFull(1);
+export async function a() {
+  return await jikan.anime.getFull(5);
 }
 
 export function resetAnimeMangaIndex(): void {
   currentAnimeIndex = 0;
   currentMangaIndex = 0;
 }
+
+a();
