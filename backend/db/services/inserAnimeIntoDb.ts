@@ -40,7 +40,7 @@ export async function insertAnime(anime: Anime | undefined) {
           default: anime.image.webp.default?.toString() || "",
         },
       },
-      title: {
+      titles: {
         createMany: {
           data: anime.titles,
         },

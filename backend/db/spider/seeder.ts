@@ -8,36 +8,19 @@ async function seed() {
   let thereAreMoreMangasToMine: boolean = true;
   resetAnimeMangaIndex();
 
-  const anime: Anime | undefined = await a();
-  insertAnime(anime);
-  const result = await db.anime.findMany({
-    where: {
-      title: {
-        some: {
-          title: {
-            contains: "cowboy",
-          },
-        },
-      },
-    },
-    include: {
-      title: true,
-    },
-  });
 
-  console.log(result);
+  while (thereAreMoreAnimesToMine) {
+    const animes = await mineAnime()
+    if (animes.length === 0) {
+      thereAreMoreAnimesToMine = false;
+      return;
+    }
 
-  // while (thereAreMoreAnimesToMine) {
-  //   let animes: Anime[] = await mineAnime();
-  //   if (animes.length === 0) {
-  //     thereAreMoreAnimesToMine = false;
-  //     return;
-  //   }
-  //   animes.forEach((anime) => {
-  //     insertAnimeIntoDb(anime);
-  //   });
-  // }
-  //
+    for (const anime of animes) {
+      await insertAnime(anime);
+    }
+  }
+
   // while (thereAreMoreMangasToMine) {
   //   let mangas: Manga[] = await mineManga();
   //   if (mangas.length === 0) {
@@ -50,4 +33,21 @@ async function seed() {
   // }
 }
 
+async function exampleQuery(title: string) {
+  return await db.anime.findMany({
+    where: {
+      titles: {
+        some: {
+          title: {
+            contains: title,
+          },
+        },
+      },
+    },
+    include: {
+      titles: true,
+    },
+  });
+
+}
 seed();
