@@ -1,0 +1,12 @@
+services:
+  vanga-db:
+    container_name: "vanga-db"
+    image: mariadb:10.11-rc-jammy
+    restart: always
+    environment:
+      - MARIADB_DATABASE=${MARIADB_DATABASE}
+      - MARIADB_USER=${MARIADB_USER}
+      - MARIADB_PASSWORD=${MARIADB_PASSWORD}
+      - MARIADB_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
+    ports:
+      - 3306:3306

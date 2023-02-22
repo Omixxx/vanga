@@ -1,0 +1,8 @@
+.search-bar {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  max-width: 600px;
+  top: 5rem;
+}

@@ -6,12 +6,19 @@ import {
 } from "@mantine/core";
 import { IconSearch, IconArrowRight, IconArrowLeft } from "@tabler/icons-react";
 import { useState } from "react";
-import { SearchRequest } from "../../../../../../types/types";
-import getSearchResults from "../../../services/search/Search";
+import { useNavigate } from "react-router-dom";
+import {
+  isSearchResponse,
+  SearchRequest,
+  SearchResponse,
+} from "../../../../../../shared/types/types";
+import getSearchResults from "../../../services/search/search";
+import exists from "../../../utils/exists";
 
 export function SearchBar(props: TextInputProps) {
   const theme = useMantineTheme();
   const [query, setQuery] = useState<SearchRequest>({ title: "" });
+  const navigate = useNavigate();
 
   return (
     <TextInput
@@ -25,7 +32,14 @@ export function SearchBar(props: TextInputProps) {
           color={theme.primaryColor}
           variant="filled"
           onClick={async () => {
-            console.log(await getSearchResults(query));
+            const searchResponse: SearchResponse | undefined =
+              await getSearchResults(query);
+            if (!exists(searchResponse))
+              return alert("Response in not defined");
+            if (!isSearchResponse(searchResponse))
+              return alert("Not valid Response type");
+
+            navigate("/search_results", { state: searchResponse });
           }}
         >
           {theme.dir === "ltr" ? (
@@ -35,12 +49,10 @@ export function SearchBar(props: TextInputProps) {
           )}
         </ActionIcon>
       }
-      placeholder="Search questions"
+      placeholder="Search Anime or Manga"
       rightSectionWidth={42}
-      {...props}
       onChange={(e) => {
         setQuery({ title: e.target.value });
-        console.log(query);
       }}
     />
   );
