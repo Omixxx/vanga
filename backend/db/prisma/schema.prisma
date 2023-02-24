@@ -1,5 +1,5 @@
 // This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+// learn more about it 
 
 generator client {
   provider = "prisma-client-js"
@@ -11,42 +11,43 @@ datasource db {
 }
 
 model Anime {
-  id              Int              @id @unique
-  url             String
-  jpg             Jpg?
-  webp            Webp?
-  titles          Title[]
-  score           Float?
-  scoredBy        Int?
-  rank            Int
-  popularity      Int?
-  members         Int
-  favorites       Int
-  synopsis        String?          @db.LongText
-  background      String?          @db.LongText
-  approved        Boolean
-  trailer         Trailer?
-  type            String
-  source          String?
-  episodes        Int?
-  airInfo         AirInfo?
-  duration        Int?
-  rating          String
-  season          String?
-  year            Int?
-  producers       Producer[]
-  lincensors      Lincensor[]
-  studios         Studio[]
-  genres          Genre[]
-  explicitGeneres ExplicitGenere[]
-  demographic     Demographic[]
-  themes          Theme[]
-  relations       Relation[]
-  openings        Opening[]
-  endings         Ending[]
-  isExplicit      Boolean
-  streamingLink   StreamingLink[]
-  hash            String           @unique
+  id             Int             @id @unique
+  url            String
+  jpg            Jpg?
+  webp           Webp?
+  titles         Title[]
+  score          Float?
+  scoredBy       Int?
+  rank           Int?
+  popularity     Int?
+  members        Int
+  favorites      Int
+  synopsis       String?         @db.LongText
+  background     String?         @db.LongText
+  approved       Boolean
+  trailer        Trailer?
+  type           String
+  source         String?
+  episodes       Int?
+  airInfo        AirInfo?
+  duration       Int?
+  rating         String
+  season         String?
+  year           Int?
+  producers      Producer[]
+  lincensors     Lincensor[]
+  studios        Studio[]
+  genres         Genre[]
+  explicitGenres ExplicitGenre[]
+  demographic    Demographic[]
+  themes         Theme[]
+  relations      Relation[]
+  openings       Opening[]
+  endings        Ending[]
+  isExplicit     Boolean
+  streamingLink  StreamingLink[]
+  hash           String          @unique
+  Statistics     Statistics?
 }
 
 model Jpg {
@@ -148,10 +149,10 @@ model Genre {
   type       String
   name       String
   url        String
-  genereType String
+  genreType  String
 }
 
-model ExplicitGenere {
+model ExplicitGenre {
   id                 Int    @id @default(autoincrement())
   anime              Anime  @relation(fields: [animeId], references: [id])
   animeId            Int
@@ -159,7 +160,7 @@ model ExplicitGenere {
   type               String
   name               String
   url                String
-  genereType         String
+  genreType          String
 }
 
 model Demographic {
@@ -170,7 +171,7 @@ model Demographic {
   type             String
   name             String
   url              String
-  genereType       String
+  genreType        String
 }
 
 model Theme {
@@ -181,7 +182,7 @@ model Theme {
   type       String
   name       String
   url        String
-  genereType String
+  genreType  String
 }
 
 model Relation {
@@ -213,4 +214,26 @@ model StreamingLink {
   animeId Int
   name    String
   url     String
+}
+
+model Statistics {
+  id          Int     @id @default(autoincrement())
+  anime       Anime   @relation(fields: [animeId], references: [id])
+  animeId     Int     @unique
+  completed   Int
+  onHold      Int
+  dropped     Int
+  total       Int
+  watching    Int
+  planToWatch Int
+  scores      Score[]
+}
+
+model Score {
+  id          Int        @id @default(autoincrement())
+  statistic   Statistics @relation(fields: [statisticId], references: [id])
+  statisticId Int
+  score       Int
+  votes       Int
+  percentage  Float
 }

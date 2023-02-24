@@ -1,4 +1,4 @@
-import { Anime } from "jikan4.js";
+import { Anime, AnimeStatistics, ContentStatisticsScore } from "jikan4.js";
 import { db } from "../../config/db.server";
 import hash from "object-hash";
 
@@ -17,6 +17,8 @@ export async function insertAnime(anime: Anime | undefined) {
   ) {
     return console.log("already exist");
   }
+  let animeStatistics: AnimeStatistics = await anime.getStatistics();
+  let contentStatisticsScore: any = animeStatistics.scores
 
   await db.anime.create({
     data: {
@@ -41,9 +43,12 @@ export async function insertAnime(anime: Anime | undefined) {
         },
       },
       titles: {
-        createMany: {
-          data: anime.titles,
-        },
+        create: anime.titles.map((title) => {
+          return {
+            type: title.type,
+            title: title.title
+          }
+        })
       },
       score: anime.score,
       scoredBy: anime.scoredBy,
@@ -121,18 +126,18 @@ export async function insertAnime(anime: Anime | undefined) {
             name: genre.name,
             url: genre.url.toString(),
             type: genre.type,
-            genereType: genre.genreType,
+            genreType: genre.genreType,
           };
         }),
       },
-      explicitGeneres: {
+      explicitGenres: {
         create: anime.explicitGenres.map((expliciteGenre) => {
           return {
             explicitGenreMalId: expliciteGenre.id,
             name: expliciteGenre.name,
             url: expliciteGenre.url.toString(),
             type: expliciteGenre.type,
-            genereType: expliciteGenre.genreType,
+            genreType: expliciteGenre.genreType,
           };
         }),
       },
@@ -143,7 +148,7 @@ export async function insertAnime(anime: Anime | undefined) {
             name: demographic.name,
             url: demographic.url.toString(),
             type: demographic.type,
-            genereType: demographic.genreType,
+            genreType: demographic.genreType,
           };
         }),
       },
@@ -154,7 +159,7 @@ export async function insertAnime(anime: Anime | undefined) {
             name: theme.name,
             url: theme.url.toString(),
             type: theme.type,
-            genereType: theme.genreType,
+            genreType: theme.genreType,
           };
         }),
       },
@@ -189,8 +194,29 @@ export async function insertAnime(anime: Anime | undefined) {
           };
         }),
       },
+      Statistics: {
+        create: {
+          watching: animeStatistics.watching,
+          completed: animeStatistics.completed,
+          onHold: animeStatistics.onHold,
+          dropped: animeStatistics.dropped,
+          planToWatch: animeStatistics.planToWatch,
+          total: animeStatistics.total,
+          scores: {
+            create: contentStatisticsScore.map((score: ContentStatisticsScore) => {
+              return {
+                score: score.score,
+                votes: score.votes,
+                percentage: score.percentage
+              }
+            })
+          }
+        },
+
+      },
       isExplicit: anime.isExplicit,
       hash: hash(anime),
+
     },
   });
   //
