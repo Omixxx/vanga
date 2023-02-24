@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import search from "./routes/Search";
-import relation from "./routes/Relation";
+import relation from "./routes/Related";
 import dotenv from "dotenv";
 dotenv.config();
 

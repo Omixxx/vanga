@@ -24,7 +24,7 @@ export const isAnime = new tg.IsInterface()
     imageUrl: tg.isString,
     synopsis: tg.isString,
     isExplicit: tg.isBoolean,
-    popularity: tg.isNumber,
+    popularity: tg.isNullable(tg.isNumber),
   })
   .get();
 

@@ -17,7 +17,7 @@ export default async function getRelations(req: Request, res: Response) {
   if (request.source === Source.anime) {
     console.log("anime");
 
-    const relations = await animeService.getRelations(request.id);
+    const relations = await animeService.getRelated(request.id);
     relations?.forEach((relation) => {
       console.log(relation);
     });

@@ -1,5 +1,5 @@
 import express from "express";
-import getRelations from "../controllers/Relation";
+import getRelations from "../controllers/Related";
 
 const router = express.Router();
 
