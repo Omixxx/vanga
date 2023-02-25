@@ -15,7 +15,6 @@ model Anime {
   url            String
   jpg            Jpg?
   webp           Webp?
-  titles         Title[]
   score          Float?
   scoredBy       Int?
   rank           Int?
@@ -34,12 +33,14 @@ model Anime {
   rating         String
   season         String?
   year           Int?
+  statistics     Statistics?
+  titles         Title[]
   producers      Producer[]
   lincensors     Lincensor[]
   studios        Studio[]
   genres         Genre[]
   explicitGenres ExplicitGenre[]
-  demographic    Demographic[]
+  demographics   Demographic[]
   themes         Theme[]
   relations      Relation[]
   openings       Opening[]
@@ -47,18 +48,51 @@ model Anime {
   isExplicit     Boolean
   streamingLink  StreamingLink[]
   hash           String          @unique
-  Statistics     Statistics?
+}
+
+model Manga {
+  id             Int             @id @unique
+  url            String
+  jpg            Jpg?
+  score          Float?
+  scoredBy       Int?
+  rank           Int?
+  popularity     Int?
+  members        Int
+  favorites      Int
+  synopsis       String?         @db.LongText
+  background     String?         @db.LongText
+  approved       Boolean
+  type           String
+  volumes        Int?
+  chapters       Int?
+  publishInfo    PublishInfo?
+  titles         Title[]
+  authors        Author[]
+  serializations Serialization[]
+  genres         Genre[]
+  explicitGenres ExplicitGenre[]
+  demographics   Demographic[]
+  themes         Theme[]
+  relations      Relation[]
+  statistics     Statistics?
+  isExplicit     Boolean
+  hash           String          @unique
 }
 
 model Jpg {
   id      Int     @id @default(autoincrement())
-  anime   Anime   @relation(fields: [animeId], references: [id])
-  animeId Int     @unique
+  anime   Anime?  @relation(fields: [animeId], references: [id])
+  animeId Int?    @unique
+  manga   Manga?  @relation(fields: [mangaId], references: [id])
+  mangaId Int?    @unique
   small   String?
   medium  String?
   large   String?
   maximum String?
   default String?
+
+  @@unique([animeId, mangaId])
 }
 
 model Webp {
@@ -74,10 +108,14 @@ model Webp {
 
 model Title {
   id      Int    @id @default(autoincrement())
-  anime   Anime  @relation(fields: [animeId], references: [id])
-  animeId Int
+  anime   Anime? @relation(fields: [animeId], references: [id])
+  animeId Int?
+  manga   Manga? @relation(fields: [mangaId], references: [id])
+  mangaId Int?
   type    String
   title   String
+
+  @@unique([animeId, mangaId])
 }
 
 model Trailer {
@@ -143,55 +181,75 @@ model Studio {
 
 model Genre {
   id         Int    @id @default(autoincrement())
-  anime      Anime  @relation(fields: [animeId], references: [id])
-  animeId    Int
+  anime      Anime? @relation(fields: [animeId], references: [id])
+  animeId    Int?
+  manga      Manga? @relation(fields: [mangaId], references: [id])
+  mangaId    Int?
   genreMalId Int
   type       String
   name       String
   url        String
   genreType  String
+
+  @@unique([animeId, mangaId])
 }
 
 model ExplicitGenre {
   id                 Int    @id @default(autoincrement())
-  anime              Anime  @relation(fields: [animeId], references: [id])
-  animeId            Int
+  anime              Anime? @relation(fields: [animeId], references: [id])
+  animeId            Int?
+  manga              Manga? @relation(fields: [mangaId], references: [id])
+  mangaId            Int?
   explicitGenreMalId Int
   type               String
   name               String
   url                String
   genreType          String
+
+  @@unique([animeId, mangaId])
 }
 
 model Demographic {
   id               Int    @id @default(autoincrement())
-  anime            Anime  @relation(fields: [animeId], references: [id])
-  animeId          Int
+  anime            Anime? @relation(fields: [animeId], references: [id])
+  animeId          Int?
+  manga            Manga? @relation(fields: [mangaId], references: [id])
+  mangaId          Int?
   demographicMalId Int
   type             String
   name             String
   url              String
   genreType        String
+
+  @@unique([animeId, mangaId])
 }
 
 model Theme {
   id         Int    @id @default(autoincrement())
-  anime      Anime  @relation(fields: [animeId], references: [id])
-  animeId    Int
+  anime      Anime? @relation(fields: [animeId], references: [id])
+  animeId    Int?
+  manga      Manga? @relation(fields: [mangaId], references: [id])
+  mangaId    Int?
   themeMalId Int
   type       String
   name       String
   url        String
   genreType  String
+
+  @@unique([animeId, mangaId])
 }
 
 model Relation {
   id           Int    @id @default(autoincrement())
-  anime        Anime  @relation(fields: [animeId], references: [id])
-  animeId      Int
+  anime        Anime? @relation(fields: [animeId], references: [id])
+  animeId      Int?
+  manga        Manga? @relation(fields: [mangaId], references: [id])
+  mangaId      Int?
   relationType String
   source       String
   relatedToId  Int
+
+  @@unique([animeId, mangaId])
 }
 
 model Opening {
@@ -217,16 +275,20 @@ model StreamingLink {
 }
 
 model Statistics {
-  id          Int     @id @default(autoincrement())
-  anime       Anime   @relation(fields: [animeId], references: [id])
-  animeId     Int     @unique
-  completed   Int
-  onHold      Int
-  dropped     Int
-  total       Int
-  watching    Int
-  planToWatch Int
-  scores      Score[]
+  id            Int     @id @default(autoincrement())
+  anime         Anime?  @relation(fields: [animeId], references: [id])
+  animeId       Int?    @unique
+  manga         Manga?  @relation(fields: [mangaId], references: [id])
+  mangaId       Int?    @unique
+  completed     Int
+  onHold        Int
+  dropped       Int
+  total         Int
+  consuming     Int
+  planToConsume Int
+  scores        Score[]
+
+  @@unique([animeId, mangaId])
 }
 
 model Score {
@@ -236,4 +298,34 @@ model Score {
   score       Int
   votes       Int
   percentage  Float
+}
+
+model PublishInfo {
+  id            Int       @id @default(autoincrement())
+  manga         Manga     @relation(fields: [mangaId], references: [id])
+  mangaId       Int       @unique
+  status        String
+  publishing    Boolean
+  publishedFrom DateTime?
+  publishedTo   DateTime?
+}
+
+model Author {
+  id          Int    @id @default(autoincrement())
+  manga       Manga  @relation(fields: [mangaId], references: [id])
+  mangaId     Int
+  authorMalId Int
+  type        String
+  name        String
+  url         String
+}
+
+model Serialization {
+  id          Int    @id @default(autoincrement())
+  manga       Manga  @relation(fields: [mangaId], references: [id])
+  mangaId     Int
+  authorMalId Int
+  type        String
+  name        String
+  url         String
 }

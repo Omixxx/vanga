@@ -1,7 +1,7 @@
 import { Anime, Source } from "../../../shared/types/types";
-import { StrictSearch } from "../controllers/Search";
+import { StrictAnimeSearch } from "../controllers/Search";
 export default function convertJikanAnimeToCustomAnime(
-  animes: StrictSearch
+  animes: StrictAnimeSearch
 ): Anime[] {
   const convertedAnimes: Anime[] = [];
   for (const anime of animes) {

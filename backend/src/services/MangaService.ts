@@ -1,31 +1,40 @@
-import Jikan from "jikan4.js";
-import exists from "../utils/exists";
+import { Manga } from "@prisma/client";
+import { db } from "../../config/db.server";
 
-export class MangaService extends Jikan.Client {
-  constructor() {
-    super();
-  }
+export class MangaService {
 
-  async strictSearch(title: string): Promise<Jikan.Manga[]> {
-    const mangas: Jikan.Manga[] = await this.manga.search(title);
-    return mangas.filter((manga: Jikan.Manga) => {
-      for (let entry of manga.titles) {
-        if (entry.title.toLowerCase().includes(title.toLowerCase()))
-          return true;
+  async strictSearch(title: string) {
+    return await db.manga.findMany({
+      where: {
+        titles: {
+          some: {
+            title: {
+              contains: title,
+            }
+          }
+        }
+      },
+      include: {
+        titles: true,
+        jpg: true,
       }
-    });
+    })
   }
 
-  async wideSearch(title: string): Promise<Jikan.Manga[]> {
-    return await this.manga.search(title);
-  }
-
-  async getRelations(
-    mangaId: number
-  ): Promise<
-    Jikan.MangaRelationGroup<Jikan.ContentRelationType>[] | undefined
-  > {
-    if (!exists(mangaId)) throw new Error("Manga is undefined");
-    return this.manga.getRelations(mangaId);
+  async getRelated(id: number): Promise<Manga[]> {
+    return await db.manga.findMany({
+      where: {
+        relations: {
+          some: {
+            relatedToId: id,
+          }
+        }
+      },
+      include: {
+        titles: true,
+        jpg: true,
+        relations: true,
+      }
+    })
   }
 }

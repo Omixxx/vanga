@@ -13,7 +13,8 @@ import convertJikanAnimeToCustomAnime from "../utils/convertJikanAnimeType";
 import convertJikanMangaToCustomManga from "../utils/converJikanMangaType";
 import printRequestHostName from "../utils/printRequestHostName";
 import { Prisma } from "@prisma/client";
-export type StrictSearch = Prisma.PromiseReturnType<typeof animeService.strictSearch>;
+export type StrictAnimeSearch = Prisma.PromiseReturnType<typeof animeService.strictSearch>;
+export type StrictMangaSearch = Prisma.PromiseReturnType<typeof mangaService.strictSearch>;
 
 const animeService = new AnimeService();
 const mangaService = new MangaService();
@@ -26,10 +27,10 @@ export async function search(req: Request, res: Response) {
   );
   const searchRequest: SearchRequest = req.body;
 
-  const animeSearch: StrictSearch = await animeService.strictSearch(
+  const animeSearch: StrictAnimeSearch = await animeService.strictSearch(
     searchRequest.title
   );
-  const mangaSearch: Jikan.Manga[] = await mangaService.strictSearch(
+  const mangaSearch: StrictMangaSearch = await mangaService.strictSearch(
     searchRequest.title
   );
 

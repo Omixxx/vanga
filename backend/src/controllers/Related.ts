@@ -26,7 +26,7 @@ export default async function getRelations(req: Request, res: Response) {
   if (request.source === Source.manga) {
     console.log("manga");
 
-    const relations = await mangaService.getRelations(request.id);
+    const relations = await mangaService.getRelated(request.id);
     relations?.forEach((relation) => {
       console.log(relation);
     });

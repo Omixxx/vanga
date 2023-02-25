@@ -1,14 +1,25 @@
-import { Anime } from "jikan4.js";
 import { db } from "../../config/db.server";
 import { insertAnime } from "../services/inserAnimeIntoDb";
-import { a, mineAnime, mineManga, resetAnimeMangaIndex } from "./spider";
+import { insertManga } from "../services/insertMangaIntoDb";
+import { a, mineAnime, mineManga, resetMiner } from "./spider";
 
 async function seed() {
   let thereAreMoreAnimesToMine: boolean = true;
   let thereAreMoreMangasToMine: boolean = true;
-  resetAnimeMangaIndex();
+  resetMiner();
 
 
+
+  while (thereAreMoreMangasToMine) {
+    const mangas = await mineManga()
+    if (mangas.length === 0) {
+      thereAreMoreMangasToMine = false;
+      return;
+    }
+    for (const manga of mangas) {
+      await insertManga(manga);
+    }
+  }
   while (thereAreMoreAnimesToMine) {
     const animes = await mineAnime()
     if (animes.length === 0) {
@@ -21,16 +32,6 @@ async function seed() {
     }
   }
 
-  // while (thereAreMoreMangasToMine) {
-  //   let mangas: Manga[] = await mineManga();
-  //   if (mangas.length === 0) {
-  //     thereAreMoreMangasToMine = false;
-  //     return;
-  //   }
-  //   mangas.forEach((manga) => {
-  //     insertMangaIntoDb(manga);
-  //   });
-  // }
 }
 
 async function exampleQuery(title: string) {
@@ -51,3 +52,4 @@ async function exampleQuery(title: string) {
 
 }
 seed();
+

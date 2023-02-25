@@ -17,10 +17,10 @@ export async function mineManga(): Promise<Manga[]> {
 }
 
 export async function a() {
-  return await jikan.anime.getFull(5);
+  return (await jikan.manga.getFull(22))
 }
 
-export function resetAnimeMangaIndex(): void {
+export function resetMiner(): void {
   currentAnimeIndex = 0;
   currentMangaIndex = 0;
 }

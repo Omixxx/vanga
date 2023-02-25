@@ -141,7 +141,7 @@ export async function insertAnime(anime: Anime | undefined) {
           };
         }),
       },
-      demographic: {
+      demographics: {
         create: anime.demographics.map((demographic) => {
           return {
             demographicMalId: demographic.id,
@@ -194,13 +194,13 @@ export async function insertAnime(anime: Anime | undefined) {
           };
         }),
       },
-      Statistics: {
+      statistics: {
         create: {
-          watching: animeStatistics.watching,
+          consuming: animeStatistics.watching,
           completed: animeStatistics.completed,
           onHold: animeStatistics.onHold,
           dropped: animeStatistics.dropped,
-          planToWatch: animeStatistics.planToWatch,
+          planToConsume: animeStatistics.planToWatch,
           total: animeStatistics.total,
           scores: {
             create: contentStatisticsScore.map((score: ContentStatisticsScore) => {
