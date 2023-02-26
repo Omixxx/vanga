@@ -22,7 +22,7 @@ export class AnimeService {
     })
   }
 
-  async getRelated(id: number): Promise<Anime[]> {
+  async getRelated(id: number) {
     return await db.anime.findMany({
       where: {
         relations: {

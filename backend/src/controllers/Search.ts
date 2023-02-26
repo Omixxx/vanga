@@ -8,7 +8,6 @@ import assert from "assert";
 import { Request, Response } from "express";
 import { AnimeService } from "../services/AnimeService";
 import { MangaService } from "../services/MangaService";
-import Jikan from "jikan4.js";
 import convertJikanAnimeToCustomAnime from "../utils/convertJikanAnimeType";
 import convertJikanMangaToCustomManga from "../utils/converJikanMangaType";
 import printRequestHostName from "../utils/printRequestHostName";

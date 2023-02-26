@@ -10,13 +10,14 @@ type Relation = {
 
 export async function insertManga(manga: Manga | undefined) {
   if (manga === undefined) return console.log("not exist");
+  const mangaDbHash = (await db.manga.findFirst({ where: { id: manga.id } }))?.hash
 
-  if (
-    (await db.manga.findFirst({ where: { id: manga.id } }))?.hash ===
-    hash(manga)
-  ) {
+  if (mangaDbHash === hash(manga))
     return console.log("already exist");
-  }
+
+  if (mangaDbHash !== hash(manga) && mangaDbHash !== undefined)
+    await db.manga.delete({ where: { id: manga.id } });
+
   let mangaStatistics: MangaStatistics = await manga.getStatistics();
   let contentStatisticsScore: any = mangaStatistics.scores
 

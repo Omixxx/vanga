@@ -10,13 +10,14 @@ type Relation = {
 
 export async function insertAnime(anime: Anime | undefined) {
   if (anime === undefined) return console.log("not exist");
+  const animeDbHash = (await db.anime.findFirst({ where: { id: anime.id } }))?.hash
 
-  if (
-    (await db.anime.findFirst({ where: { id: anime.id } }))?.hash ===
-    hash(anime)
-  ) {
+  if (animeDbHash === hash(anime))
     return console.log("already exist");
-  }
+
+  if (animeDbHash !== hash(anime) && animeDbHash !== undefined)
+    await db.anime.delete({ where: { id: anime.id } });
+
   let animeStatistics: AnimeStatistics = await anime.getStatistics();
   let contentStatisticsScore: any = animeStatistics.scores
 

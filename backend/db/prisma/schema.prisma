@@ -82,9 +82,9 @@ model Manga {
 
 model Jpg {
   id      Int     @id @default(autoincrement())
-  anime   Anime?  @relation(fields: [animeId], references: [id])
+  anime   Anime?  @relation(fields: [animeId], references: [id], onDelete: Cascade)
   animeId Int?    @unique
-  manga   Manga?  @relation(fields: [mangaId], references: [id])
+  manga   Manga?  @relation(fields: [mangaId], references: [id], onDelete: Cascade)
   mangaId Int?    @unique
   small   String?
   medium  String?
@@ -97,7 +97,7 @@ model Jpg {
 
 model Webp {
   id      Int     @id @default(autoincrement())
-  anime   Anime   @relation(fields: [animeId], references: [id])
+  anime   Anime   @relation(fields: [animeId], references: [id], onDelete: Cascade)
   animeId Int     @unique
   small   String?
   medium  String?
@@ -108,9 +108,9 @@ model Webp {
 
 model Title {
   id      Int    @id @default(autoincrement())
-  anime   Anime? @relation(fields: [animeId], references: [id])
+  anime   Anime? @relation(fields: [animeId], references: [id], onDelete: Cascade)
   animeId Int?
-  manga   Manga? @relation(fields: [mangaId], references: [id])
+  manga   Manga? @relation(fields: [mangaId], references: [id], onDelete: Cascade)
   mangaId Int?
   type    String
   title   String
@@ -120,7 +120,7 @@ model Title {
 
 model Trailer {
   id                Int           @id @default(autoincrement())
-  anime             Anime         @relation(fields: [animeId], references: [id])
+  anime             Anime         @relation(fields: [animeId], references: [id], onDelete: Cascade)
   animeId           Int           @unique
   url               String
   embedUrl          String
@@ -130,7 +130,7 @@ model Trailer {
 
 model TrailerImage {
   id        Int     @id @default(autoincrement())
-  trailer   Trailer @relation(fields: [trailerId], references: [id])
+  trailer   Trailer @relation(fields: [trailerId], references: [id], onDelete: Cascade)
   trailerId Int     @unique
   small     String
   default   String
@@ -141,7 +141,7 @@ model TrailerImage {
 
 model AirInfo {
   id        Int       @id @default(autoincrement())
-  anime     Anime     @relation(fields: [animeId], references: [id])
+  anime     Anime     @relation(fields: [animeId], references: [id], onDelete: Cascade)
   animeId   Int       @unique
   status    String
   airing    Boolean
@@ -151,7 +151,7 @@ model AirInfo {
 
 model Producer {
   id            Int    @id @default(autoincrement())
-  anime         Anime  @relation(fields: [animeId], references: [id])
+  anime         Anime  @relation(fields: [animeId], references: [id], onDelete: Cascade)
   animeId       Int
   producerMalId Int
   type          String
@@ -161,7 +161,7 @@ model Producer {
 
 model Lincensor {
   id             Int    @id @default(autoincrement())
-  anime          Anime  @relation(fields: [animeId], references: [id])
+  anime          Anime  @relation(fields: [animeId], references: [id], onDelete: Cascade)
   animeId        Int
   lincensorMalId Int
   url            String
@@ -171,7 +171,7 @@ model Lincensor {
 
 model Studio {
   id          Int    @id @default(autoincrement())
-  anime       Anime  @relation(fields: [animeId], references: [id])
+  anime       Anime  @relation(fields: [animeId], references: [id], onDelete: Cascade)
   animeId     Int
   studioMalId Int
   url         String
@@ -181,9 +181,9 @@ model Studio {
 
 model Genre {
   id         Int    @id @default(autoincrement())
-  anime      Anime? @relation(fields: [animeId], references: [id])
+  anime      Anime? @relation(fields: [animeId], references: [id], onDelete: Cascade)
   animeId    Int?
-  manga      Manga? @relation(fields: [mangaId], references: [id])
+  manga      Manga? @relation(fields: [mangaId], references: [id], onDelete: Cascade)
   mangaId    Int?
   genreMalId Int
   type       String
@@ -196,9 +196,9 @@ model Genre {
 
 model ExplicitGenre {
   id                 Int    @id @default(autoincrement())
-  anime              Anime? @relation(fields: [animeId], references: [id])
+  anime              Anime? @relation(fields: [animeId], references: [id], onDelete: Cascade)
   animeId            Int?
-  manga              Manga? @relation(fields: [mangaId], references: [id])
+  manga              Manga? @relation(fields: [mangaId], references: [id], onDelete: Cascade)
   mangaId            Int?
   explicitGenreMalId Int
   type               String
@@ -211,9 +211,9 @@ model ExplicitGenre {
 
 model Demographic {
   id               Int    @id @default(autoincrement())
-  anime            Anime? @relation(fields: [animeId], references: [id])
+  anime            Anime? @relation(fields: [animeId], references: [id], onDelete: Cascade)
   animeId          Int?
-  manga            Manga? @relation(fields: [mangaId], references: [id])
+  manga            Manga? @relation(fields: [mangaId], references: [id], onDelete: Cascade)
   mangaId          Int?
   demographicMalId Int
   type             String
@@ -226,9 +226,9 @@ model Demographic {
 
 model Theme {
   id         Int    @id @default(autoincrement())
-  anime      Anime? @relation(fields: [animeId], references: [id])
+  anime      Anime? @relation(fields: [animeId], references: [id], onDelete: Cascade)
   animeId    Int?
-  manga      Manga? @relation(fields: [mangaId], references: [id])
+  manga      Manga? @relation(fields: [mangaId], references: [id], onDelete: Cascade)
   mangaId    Int?
   themeMalId Int
   type       String
@@ -241,9 +241,9 @@ model Theme {
 
 model Relation {
   id           Int    @id @default(autoincrement())
-  anime        Anime? @relation(fields: [animeId], references: [id])
+  anime        Anime? @relation(fields: [animeId], references: [id], onDelete: Cascade)
   animeId      Int?
-  manga        Manga? @relation(fields: [mangaId], references: [id])
+  manga        Manga? @relation(fields: [mangaId], references: [id], onDelete: Cascade)
   mangaId      Int?
   relationType String
   source       String
@@ -254,21 +254,21 @@ model Relation {
 
 model Opening {
   id      Int    @id @default(autoincrement())
-  anime   Anime  @relation(fields: [animeId], references: [id])
+  anime   Anime  @relation(fields: [animeId], references: [id], onDelete: Cascade)
   animeId Int
   title   String
 }
 
 model Ending {
   id      Int    @id @default(autoincrement())
-  anime   Anime  @relation(fields: [animeId], references: [id])
+  anime   Anime  @relation(fields: [animeId], references: [id], onDelete: Cascade)
   animeId Int
   title   String
 }
 
 model StreamingLink {
   id      Int    @id @default(autoincrement())
-  anime   Anime  @relation(fields: [animeId], references: [id])
+  anime   Anime  @relation(fields: [animeId], references: [id], onDelete: Cascade)
   animeId Int
   name    String
   url     String
@@ -276,9 +276,9 @@ model StreamingLink {
 
 model Statistics {
   id            Int     @id @default(autoincrement())
-  anime         Anime?  @relation(fields: [animeId], references: [id])
+  anime         Anime?  @relation(fields: [animeId], references: [id], onDelete: Cascade)
   animeId       Int?    @unique
-  manga         Manga?  @relation(fields: [mangaId], references: [id])
+  manga         Manga?  @relation(fields: [mangaId], references: [id], onDelete: Cascade)
   mangaId       Int?    @unique
   completed     Int
   onHold        Int
@@ -293,7 +293,7 @@ model Statistics {
 
 model Score {
   id          Int        @id @default(autoincrement())
-  statistic   Statistics @relation(fields: [statisticId], references: [id])
+  statistic   Statistics @relation(fields: [statisticId], references: [id], onDelete: Cascade)
   statisticId Int
   score       Int
   votes       Int
@@ -302,7 +302,7 @@ model Score {
 
 model PublishInfo {
   id            Int       @id @default(autoincrement())
-  manga         Manga     @relation(fields: [mangaId], references: [id])
+  manga         Manga     @relation(fields: [mangaId], references: [id], onDelete: Cascade)
   mangaId       Int       @unique
   status        String
   publishing    Boolean
@@ -312,7 +312,7 @@ model PublishInfo {
 
 model Author {
   id          Int    @id @default(autoincrement())
-  manga       Manga  @relation(fields: [mangaId], references: [id])
+  manga       Manga  @relation(fields: [mangaId], references: [id], onDelete: Cascade)
   mangaId     Int
   authorMalId Int
   type        String
@@ -322,7 +322,7 @@ model Author {
 
 model Serialization {
   id          Int    @id @default(autoincrement())
-  manga       Manga  @relation(fields: [mangaId], references: [id])
+  manga       Manga  @relation(fields: [mangaId], references: [id], onDelete: Cascade)
   mangaId     Int
   authorMalId Int
   type        String

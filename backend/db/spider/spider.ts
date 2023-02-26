@@ -12,7 +12,7 @@ export async function mineAnime(): Promise<Anime[]> {
 }
 
 export async function mineManga(): Promise<Manga[]> {
-  console.log(" Mining manga number ", currentMangaIndex);
+  // console.log(" Mining manga number ", currentMangaIndex);
   return jikan.manga.list(currentMangaIndex++, numberOfAnimeMangaWeRequest);
 }
 
