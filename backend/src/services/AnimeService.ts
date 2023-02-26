@@ -23,19 +23,12 @@ export class AnimeService {
   }
 
   async getRelated(id: number) {
-    return await db.anime.findMany({
+    const query = await db.relation.findMany({
       where: {
-        relations: {
-          some: {
-            relatedToId: id,
-          }
-        }
-      },
-      include: {
-        titles: true,
-        jpg: true,
-        relations: true,
+        animeId: id
       }
     })
+    console.log(query)
+    return query;
   }
 }

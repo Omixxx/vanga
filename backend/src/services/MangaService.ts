@@ -1,4 +1,3 @@
-import { Manga } from "@prisma/client";
 import { db } from "../../config/db.server";
 
 export class MangaService {
@@ -21,20 +20,13 @@ export class MangaService {
     })
   }
 
-  async getRelated(id: number): Promise<Manga[]> {
-    return await db.manga.findMany({
+  async getRelated(id: number) {
+    const query = await db.relation.findMany({
       where: {
-        relations: {
-          some: {
-            relatedToId: id,
-          }
-        }
-      },
-      include: {
-        titles: true,
-        jpg: true,
-        relations: true,
+        mangaId: id
       }
     })
+    console.log(query)
+    return query;
   }
 }
