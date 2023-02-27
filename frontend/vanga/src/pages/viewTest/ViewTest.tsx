@@ -6,7 +6,7 @@ import {
   SearchResponse,
 } from "../../../../../shared/types/types";
 import NoData from "../../components/NoData";
-import getRelations from "../../services/relations/getRelations";
+import getRelated from "../../services/relations/getRelations";
 import { AnimeMangaCard } from "./components/AnimeMangaCard";
 import "./ViewTest.css";
 
@@ -41,7 +41,7 @@ export default function viewTest() {
                     rating={e.source}
                     description={e.synopsis}
                     onClick={() => {
-                      getRelations(e.id, e.source);
+                      getRelated(e.id, e.source);
                     }}
                   ></AnimeMangaCard>
                 </Grid.Col>

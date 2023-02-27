@@ -11,7 +11,7 @@ export type PrismaMangaRelations = Prisma.PromiseReturnType<typeof mangaService.
 const animeService = new AnimeService();
 const mangaService = new MangaService();
 
-export default async function getRelations(req: Request, res: Response) {
+export default async function getRelated(req: Request, res: Response) {
   if (!exists(req.body)) throw new Error("Request body is empty");
   if (!isRelationRequest(req.body)) throw new Error("Invalid request body");
   printRequestHostName(req, `is requesting relations for ${req.body.id}`);
