@@ -1,7 +1,6 @@
 import express from "express";
 import cors from "cors";
 import search from "./routes/Search";
-import related from "./routes/Related";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -17,7 +16,6 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/search", search);
-app.use("/related", related);
 
 app.listen(SERVER_PORT, () => {
   console.log(`Listening on port ${SERVER_PORT}`);

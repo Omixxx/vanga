@@ -1,28 +1,27 @@
 import { Container, Grid } from "@mantine/core";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   Anime,
+  Content,
   Manga,
-  SearchResponse,
 } from "../../../../../shared/types/types";
 import NoData from "../../components/NoData";
-import getRelated from "../../services/relations/getRelations";
+import getRelated from "../../services/relations/getRelated";
+import orderByPopularity from "../../utils/orderByPopularity";
 import { AnimeMangaCard } from "./components/AnimeMangaCard";
 import "./ViewTest.css";
 
 export default function viewTest() {
-  const SearchResponse = useLocation().state as SearchResponse;
+  const Content = useLocation().state as Content;
+  const navigate = useNavigate()
 
   return (
     <Container className={"container"}>
-      {renderAnimeOrManga(SearchResponse.animes)}
-      {renderAnimeOrManga(SearchResponse.mangas)}
+      {renderAnimeOrManga(Content.animes)}
+      {renderAnimeOrManga(Content.mangas)}
     </Container>
   );
 
-  function orderByPopularity(e1: any, e2: any) {
-    return e1.popularity <= e2.popularity ? -1 : 1;
-  }
 
   function renderAnimeOrManga(entity: Anime[] | Manga[]) {
     return (
@@ -41,7 +40,12 @@ export default function viewTest() {
                     rating={e.source}
                     description={e.synopsis}
                     onClick={() => {
-                      getRelated(e.id, e.source);
+                      navigate("/confirm", {
+                        state: {
+                          id: e.id,
+                          source: e.source,
+                        }
+                      })
                     }}
                   ></AnimeMangaCard>
                 </Grid.Col>
@@ -50,7 +54,8 @@ export default function viewTest() {
           })
         ) : (
           <NoData message="nothing found" />
-        )}
+        )
+        }
       </>
     );
   }

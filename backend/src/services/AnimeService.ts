@@ -22,13 +22,16 @@ export class AnimeService {
     })
   }
 
-  async getRelated(id: number) {
-    const query = await db.relation.findMany({
+  async searchById(id: number) {
+    return await db.anime.findUnique({
       where: {
-        animeId: id
+        id: id
+      },
+      include: {
+        jpg: true,
+        titles: true,
       }
     })
-    console.log(query)
-    return query;
   }
 }
+

@@ -20,13 +20,15 @@ export class MangaService {
     })
   }
 
-  async getRelated(id: number) {
-    const query = await db.relation.findMany({
+  async searchById(id: number) {
+    return await db.manga.findUnique({
       where: {
-        mangaId: id
+        id: id
+      },
+      include: {
+        jpg: true,
+        titles: true,
       }
     })
-    console.log(query)
-    return query;
   }
 }

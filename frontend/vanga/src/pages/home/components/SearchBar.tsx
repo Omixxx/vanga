@@ -8,16 +8,16 @@ import { IconSearch, IconArrowRight, IconArrowLeft } from "@tabler/icons-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
-  isSearchResponse,
-  SearchRequest,
-  SearchResponse,
+  Content,
+  isContent,
+  SearchByTitleRequest,
 } from "../../../../../../shared/types/types";
-import getSearchResults from "../../../services/search/search";
+import { searchByTitle } from "../../../services/search/search";
 import exists from "../../../utils/exists";
 
 export function SearchBar(props: TextInputProps) {
   const theme = useMantineTheme();
-  const [query, setQuery] = useState<SearchRequest>({ title: "" });
+  const [query, setQuery] = useState<SearchByTitleRequest>({ title: "" });
   const navigate = useNavigate();
 
   return (
@@ -32,11 +32,11 @@ export function SearchBar(props: TextInputProps) {
           color={theme.primaryColor}
           variant="filled"
           onClick={async () => {
-            const searchResponse: SearchResponse | undefined =
-              await getSearchResults(query);
+            const searchResponse: Content | undefined =
+              await searchByTitle(query);
             if (!exists(searchResponse))
               return alert("Response in not defined");
-            if (!isSearchResponse(searchResponse))
+            if (!isContent(searchResponse))
               return alert("Not valid Response type");
 
             navigate("/search_results", { state: searchResponse });

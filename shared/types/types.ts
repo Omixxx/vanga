@@ -71,24 +71,36 @@ export const isManga = new tg.IsInterface()
   .get();
 
 //todo: add attributes for type ( canon, ova, etc)
-export const isSearchRequest = new tg.IsInterface()
+export const isSearchByTitleRequest = new tg.IsInterface()
   .withProperties({
     title: tg.isString,
   })
   .get();
 
-export const isSearchResponse = new tg.IsInterface()
-  .withProperties({
-    animes: tg.isArray(isAnime),
-    mangas: tg.isArray(isManga),
-  })
-  .get();
 
+
+export const isSearchByIdRequest = new tg.IsInterface().withProperties({
+  id: tg.isNumber,
+  source: tg.isUnion(tg.isSingletonString(Source.manga), tg.isSingletonString(Source.anime))
+}).get();
+
+export const isSearchByIdResponse = new tg.IsInterface().withProperties({
+  content: tg.isNullable(tg.isUnion(isAnime, isManga))
+}).get()
+
+export const isContent = new tg.IsInterface().withProperties({
+  animes: tg.isArray(isAnime),
+  mangas: tg.isArray(isManga),
+}).get()
+
+
+export type Content = tg.GuardedType<typeof isContent>;
 export type Relation = tg.GuardedType<typeof isRelation>;
 export type RelationResponse = tg.GuardedType<typeof isRelationResponse>;
 export type RelationRequest = tg.GuardedType<typeof isRelationRequest>;
-export type SearchResponse = tg.GuardedType<typeof isSearchResponse>;
-export type SearchRequest = tg.GuardedType<typeof isSearchRequest>;
+export type SearchByTitleRequest = tg.GuardedType<typeof isSearchByTitleRequest>;
+export type SearchByIdRequest = tg.GuardedType<typeof isSearchByIdRequest>;
+export type SearchByIdResponse = tg.GuardedType<typeof isSearchByIdResponse>;
 export type Manga = tg.GuardedType<typeof isManga>;
 export type RelationType = tg.GuardedType<typeof isRelationType>;
 export type Anime = tg.GuardedType<typeof isAnime>;

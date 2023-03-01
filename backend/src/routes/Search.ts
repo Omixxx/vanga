@@ -1,8 +1,10 @@
 import express from "express";
-import { search } from "../controllers/Search";
+import { searchById, searchByTitle, searchRelatedById } from "../controllers/Search";
 
 const router = express.Router();
 
-router.post("/", search);
+router.post("/title", searchByTitle);
+router.post("/id", searchById);
+router.post("/id/related", searchRelatedById)
 
 export default router;
